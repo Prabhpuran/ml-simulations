@@ -3,6 +3,7 @@
 import { useState } from "react";
 import LearningLab from "./learning-lab";
 import FoundationsLab from "./foundations-lab";
+import PreparationLab from "./preparation-lab";
 
 function FoundationArtwork() {
   return <svg className="chapter-art foundation-art" viewBox="0 0 260 130" aria-hidden="true">
@@ -22,11 +23,11 @@ function LearningArtwork() {
 }
 
 export default function ChapterWorkspace() {
-  const [chapter, setChapter] = useState<1 | 2 | null>(null);
+  const [chapter, setChapter] = useState<1 | 2 | 3 | null>(null);
 
   if (chapter !== null) return <div className="chapter-workspace">
     <button className="back-to-chapters" type="button" onClick={() => setChapter(null)}>All chapters</button>
-    {chapter === 2 ? <LearningLab /> : <FoundationsLab />}
+    {chapter === 2 ? <LearningLab /> : chapter === 1 ? <FoundationsLab /> : <PreparationLab />}
   </div>;
 
   return <section className="chapter-workspace chapter-index" aria-labelledby="chapters-heading">
@@ -38,6 +39,9 @@ export default function ChapterWorkspace() {
       </button>
       <button type="button" className="chapter-entry" onClick={() => setChapter(2)}>
         <span className="entry-number">02</span><span className="entry-copy"><span className="entry-meta">THE FUNDAMENTALS <span>·</span> 13 EXPERIMENTS</span><strong>The learning process</strong><span className="entry-question">How does a model improve from experience?</span></span><LearningArtwork /><span className="entry-action">Explore chapter</span>
+      </button>
+      <button type="button" className="chapter-entry" onClick={() => setChapter(3)}>
+        <span className="entry-number">03</span><span className="entry-copy"><span className="entry-meta">DATA PREPARATION <span>·</span> 9 EXPERIMENTS</span><strong>Preparing data</strong><span className="entry-question">How do our data choices shape what a model learns?</span></span><FoundationArtwork /><span className="entry-action">Explore chapter</span>
       </button>
     </div>
   </section>;
